@@ -1,0 +1,3 @@
+[submodule "dist"]
+	path = dist
+	url = ssh://git@github.com/path/to/bower-repo
