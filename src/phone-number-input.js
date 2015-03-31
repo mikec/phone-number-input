@@ -1,3 +1,6 @@
+// phone-number-input
+// v0.0.2
+
 (function() {
 
 	if(!window.litl) window.litl = angular.module('litl', []);
