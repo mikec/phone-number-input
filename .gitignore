@@ -3,4 +3,3 @@
 /dist/*.js
 /dist/*.json
 /node_modules/
-/demo/*.css

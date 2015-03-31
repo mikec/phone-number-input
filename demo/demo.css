@@ -1,0 +1,21 @@
+body {
+  font-family: arial, sans-serif;
+}
+.phone-number-input {
+  font-size: 32px;
+}
+.phone-number-input input {
+  font-size: 32px;
+  width: 38px;
+  text-align: center;
+  display: inline-block;
+}
+.phone-number-input input.placeholder {
+  color: #c3c3c3;
+}
+.phone-number-input input,
+.phone-number-input input:focus {
+  border: 0;
+  outline-width: 0;
+  outline: none;
+}
