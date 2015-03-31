@@ -23,7 +23,8 @@ module.exports = function(grunt) {
                 unused: true,
                 undef: true,
                 globals: {
-                    angular: false
+                    angular: false,
+                    console: false
                 }
             },
             src: {
