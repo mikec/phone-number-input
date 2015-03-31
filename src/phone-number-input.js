@@ -9,7 +9,7 @@
 
 		var numDigits = 10;
 
-		var tmpl = 
+		var tmpl =
 			'<div class="phone-number-input">' +
 				'<span class="paren open">(</span>' +
 				getInputStr(0) + getInputStr(1) + getInputStr(2) +
@@ -48,7 +48,7 @@
 				};
 
 				scope.keydown = function(evt, idx) {
-					var key = event.keyCode || event.charCode;
+					var key = evt.keyCode || evt.charCode;
 					var del = ( key == 8 || key == 46 );
 					var str = String.fromCharCode(key);
 					var isNum = (/\d/.test(str));
