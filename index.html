@@ -10,18 +10,14 @@
   <link href="demo/demo.css" rel="stylesheet"></link>
 
   <script src="demo/lib/angular.js"></script>
-  <script src="dist/component.js"></script>
+  <script src="demo/demo.js"></script>
+  <script src="dist/phone-number-input.js"></script>
 
 </head>
 <body ng-app="demoApp">
 
-  <div class="header">
-
-    <div class="title">my-directive</div>
-
-  </div>
-
-  <div>DEMO</div>
+    <h2>Type a phone number:</h2>
+    <input phone-number-input ng-model="phone" />
 
 </body>
 </html>

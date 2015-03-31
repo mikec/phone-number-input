@@ -42,8 +42,8 @@ module.exports = function(grunt) {
 
         copy: {
             unmin: {
-                src: 'src/component.js',
-                dest: 'dist/component.js'
+                src: 'src/phone-number-input.js',
+                dest: 'dist/phone-number-input.js'
             },
             bower: {
                 src: 'bower.json',
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
         uglify: {
             component: {
                 files: {
-                    'dist/component.min.js': ['src/component.js']
+                    'dist/phone-number-input.min.js': ['src/phone-number-input.js']
                 }
             }
         },
