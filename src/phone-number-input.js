@@ -92,6 +92,7 @@
 					var n = index + 1;
 					scope['d' + n] = '0';
 					var inp = inputs[index];
+					inp.storedValue = undefined;
 					inp.hasPlaceholder = true;
 					inp.addClass('placeholder');
 				}

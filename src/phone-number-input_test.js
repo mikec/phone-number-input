@@ -85,6 +85,24 @@ describe('init', function() {
 
     });
 
+    describe('when an element with a value is input, then deleted, then focused and blurred',
+    function() {
+
+        beforeEach(function() {
+            this.setInputFocus(0);
+            this.scope.keydown(new MockKeyEvent(55), 0);
+            this.setInputFocus(0);
+            this.scope.keydown(new MockKeyEvent(8), 0);
+            this.setInputFocus(0);
+            this.blurInput(0);
+        });
+
+        it('should set the placeholder value', function() {
+            this.expectValue(0).toBe(phVal);
+        });
+
+    });
+
     describe('when an element with a value is focused', function() {
 
         beforeEach(function() {
