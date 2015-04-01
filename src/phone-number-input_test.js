@@ -127,6 +127,19 @@ describe('init', function() {
 
     });
 
+    describe('when a numeric value is input on the last input', function() {
+
+        beforeEach(function() {
+            this.setInputFocus(9);
+            this.scope.keydown(new MockKeyEvent(55), 9);
+        });
+
+        it('the last input should be blurred', function() {
+            this.expectToBeBlurred(9);
+        });
+
+    });
+
     describe('when a non-numeric value is input', function() {
 
         beforeEach(function() {
@@ -189,6 +202,10 @@ describe('init', function() {
 
         this.expectToBeFocused = function(index) {
             expect(this.getInputElement(index)[0]).toEqual(window.document.activeElement);
+        };
+
+        this.expectToBeBlurred = function(index) {
+            expect(this.getInputElement(index)[0]).not.toEqual(window.document.activeElement);
         };
 
     });

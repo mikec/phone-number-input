@@ -67,6 +67,8 @@
 						var nxtIdx = idx + 1;
 						if(nxtIdx < 10) {
 							inputs[nxtIdx][0].focus();
+						} else {
+							inputs[idx][0].blur();
 						}
 					} else if (del) {
 						setPlaceholder(idx);
