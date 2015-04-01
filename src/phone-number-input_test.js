@@ -147,8 +147,8 @@ describe('init', function() {
     describe('when backspace is pressed', function() {
 
         beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(55), 5);
             this.setInputFocus(5);
-            this.scope.keydown(new MockKeyEvent(55), 0);
             this.scope.keydown(new MockKeyEvent(8), 5);
         });
 
@@ -159,8 +159,8 @@ describe('init', function() {
     describe('when delete is pressed', function() {
 
         beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(55), 5);
             this.setInputFocus(5);
-            this.scope.keydown(new MockKeyEvent(55), 0);
             this.scope.keydown(new MockKeyEvent(46), 5);
         });
 
