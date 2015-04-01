@@ -37,13 +37,22 @@
 				setAllPlaceholders();
 
 				scope.focus = function(evt, idx) {
+					var inp = inputs[idx];
+					if(!inp.hasPlaceholder) {
+						inp.storedValue = getValue(idx);
+					}
 					clearPlaceholder(idx);
 				};
 
 				scope.blur = function(evt, idx) {
 					var v = getValue(idx);
 					if(angular.isUndefined(v) || v === '' || v === ' ') {
-						setPlaceholder(idx);
+						var sv = inputs[idx].storedValue;
+						if(!sv) {
+							setPlaceholder(idx);
+						} else {
+							setValue(idx, sv);
+						}
 					}
 				};
 

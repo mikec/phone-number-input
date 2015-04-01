@@ -85,6 +85,31 @@ describe('init', function() {
 
     });
 
+    describe('when an element with a value is focused', function() {
+
+        beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(55), 0);
+            this.setInputFocus(0);
+        });
+
+        it('should clear the value', function() {
+            this.expectValue(0).toBeUndefined();
+        });
+
+        describe('and then blurred', function() {
+
+            beforeEach(function() {
+                this.blurInput(0);
+            });
+
+            it('should set the original value', function() {
+                this.expectValue(0).toBe('7');
+            });
+
+        });
+
+    });
+
     describe('when a numeric value is input', function() {
 
         beforeEach(function() {
@@ -151,12 +176,10 @@ describe('init', function() {
         };
 
         this.blurInput = function(index) {
-            this.scope.blur(null, index);
             this.getInputElement(index).blur();
         };
 
         this.setInputFocus = function(index) {
-            this.scope.focus(null, index);
             this.getInputElement(index).focus();
         };
 
