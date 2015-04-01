@@ -51,6 +51,23 @@
 					}
 				};
 
+				ngModelCtrl.$parsers.push(function(viewValue) {
+					var v = '';
+					if(viewValue && viewValue.length > 0) {
+						for(var i=0; i < viewValue.length; i++) {
+							var inpVal = viewValue[i];
+							if(!inpVal.hasPlaceholder) {
+								if((parseInt(inpVal.displayValue) >= 0)) {
+									v += inpVal.displayValue;
+								} else if ((parseInt(inpVal.storedValue) >= 0)) {
+									v += inpVal.storedValue;
+								}
+							}
+						}
+					}
+					return v;
+				});
+
 				initView();
 
 				scope.focus = function(evt, idx) {
@@ -59,7 +76,7 @@
 						inpVal.storedValue = inpVal.displayValue;
 					}
 					clearPlaceholder(idx);
-					ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+					setViewValue();
 					ngModelCtrl.$render();
 				};
 
@@ -74,7 +91,7 @@
 							inpVal.displayValue = sv;
 						}
 					}
-					ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+					setViewValue();
 					ngModelCtrl.$render();
 				};
 
@@ -118,7 +135,7 @@
 					}
 
 					evt.preventDefault();
-					ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+					setViewValue();
 					ngModelCtrl.$render();
 				};
 
@@ -150,6 +167,12 @@
 
 				function setScopeValue(index, value) {
 					scope['d' + (index + 1)] = value;
+				}
+
+				function setViewValue() {
+					ngModelCtrl.$setViewValue(
+						angular.copy(ngModelCtrl.$viewValue)
+					);
 				}
 
 				function getInputElements() {

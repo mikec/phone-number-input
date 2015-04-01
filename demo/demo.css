@@ -19,3 +19,6 @@ body {
   outline-width: 0;
   outline: none;
 }
+.phoneNumberVal {
+  margin-top: 20px;
+}

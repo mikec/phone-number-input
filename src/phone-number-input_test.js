@@ -144,6 +144,46 @@ describe('init', function() {
 
     });
 
+    describe('when a full phone number is input', function() {
+
+        beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(53), 0);
+            this.scope.keydown(new MockKeyEvent(53), 1);
+            this.scope.keydown(new MockKeyEvent(53), 2);
+            this.scope.keydown(new MockKeyEvent(55), 3);
+            this.scope.keydown(new MockKeyEvent(55), 4);
+            this.scope.keydown(new MockKeyEvent(55), 5);
+            this.scope.keydown(new MockKeyEvent(56), 6);
+            this.scope.keydown(new MockKeyEvent(56), 7);
+            this.scope.keydown(new MockKeyEvent(56), 8);
+            this.scope.keydown(new MockKeyEvent(56), 9);
+        });
+
+        it('should set the model to an unformatted phone number', function() {
+            expect(this.scope.phoneNumber).toBe('5557778888');
+        });
+
+    });
+
+    describe('when a partial phone number is input', function() {
+
+        beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(53), 0);
+            this.scope.keydown(new MockKeyEvent(53), 1);
+            this.scope.keydown(new MockKeyEvent(53), 2);
+            this.scope.keydown(new MockKeyEvent(55), 3);
+            this.scope.keydown(new MockKeyEvent(56), 7);
+            this.scope.keydown(new MockKeyEvent(56), 8);
+            this.scope.keydown(new MockKeyEvent(56), 9);
+        });
+
+        it('should set the model to an unformatted partial phone number',
+        function() {
+            expect(this.scope.phoneNumber).toBe('5557888');
+        });
+
+    });
+
     describe('when a numeric value is input on the last input', function() {
 
         beforeEach(function() {
