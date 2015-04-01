@@ -75,6 +75,8 @@
 						var prevIdx = idx - 1;
 						if(prevIdx >= 0) {
 							inputs[prevIdx][0].focus();
+						} else {
+							inputs[idx][0].blur();
 						}
 					}
 					evt.preventDefault();
