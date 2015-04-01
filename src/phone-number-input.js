@@ -63,13 +63,14 @@
 					var rightOrUp = ( key == 39 || key == 38 );
 					var str = String.fromCharCode(key);
 					var isNum = (/\d/.test(str));
-					var focusPrev, focusNext;
+					var focusPrev, focusNext, allowLoseFocus;
 
 					if(isNum) {
 						clearPlaceholder(idx, str);
 						focusNext = true;
+						allowLoseFocus = true;
 					} else if (del) {
-						setPlaceholder(idx);
+						inputs[idx].storedValue = undefined;
 						focusPrev = true;
 					} else if (leftOrDown) {
 						focusPrev = true;
@@ -81,14 +82,12 @@
 						var prevIdx = idx - 1;
 						if(prevIdx >= 0) {
 							inputs[prevIdx][0].focus();
-						} else {
-							inputs[idx][0].blur();
 						}
 					} else if (focusNext) {
 						var nxtIdx = idx + 1;
 						if(nxtIdx < 10) {
 							inputs[nxtIdx][0].focus();
-						} else {
+						} else if (allowLoseFocus) {
 							inputs[idx][0].blur();
 						}
 					}

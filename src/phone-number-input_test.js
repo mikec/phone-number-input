@@ -206,8 +206,12 @@ describe('init', function() {
             this.scope.keydown(new MockKeyEvent(8), 0);
         });
 
-        it('should blur the first input', function() {
-            this.expectToBeBlurred(0);
+        it('should not blur the first input', function() {
+            this.expectToBeFocused(0);
+        });
+
+        it('should not set any value on the first input', function() {
+            this.expectValue(0).toBeUndefined();
         });
 
     });
