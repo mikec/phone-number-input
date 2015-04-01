@@ -30,30 +30,52 @@
 
 		return {
 			template: tmpl,
-			link: function(scope, element) {
+			require: 'ngModel',
+			link: function(scope, element, attrs, ngModelCtrl) {
 
 				var inputs = getInputElements();
 
-				setAllPlaceholders();
+				ngModelCtrl.$render = function() {
+					var viewVal = ngModelCtrl.$viewValue;
+					if(viewVal && viewVal.length > 0) {
+						for(var i=0; i < viewVal.length; i++) {
+							var inpVal = viewVal[i];
+							setScopeValue(i, inpVal.displayValue);
+							var inp = inputs[i];
+							if(inpVal.hasPlaceholder) {
+								inp.addClass('placeholder');
+							} else {
+								inp.removeClass('placeholder');
+							}
+						}
+					}
+				};
+
+				initView();
 
 				scope.focus = function(evt, idx) {
-					var inp = inputs[idx];
-					if(!inp.hasPlaceholder) {
-						inp.storedValue = getValue(idx);
+					var inpVal = ngModelCtrl.$viewValue[idx];
+					if(!inpVal.hasPlaceholder) {
+						inpVal.storedValue = inpVal.displayValue;
 					}
 					clearPlaceholder(idx);
+					ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+					ngModelCtrl.$render();
 				};
 
 				scope.blur = function(evt, idx) {
-					var v = getValue(idx);
+					var inpVal = ngModelCtrl.$viewValue[idx];
+					var v = inpVal.displayValue;
 					if(angular.isUndefined(v) || v === '' || v === ' ') {
-						var sv = inputs[idx].storedValue;
+						var sv = inpVal.storedValue;
 						if(!sv) {
 							setPlaceholder(idx);
 						} else {
-							setValue(idx, sv);
+							inpVal.displayValue = sv;
 						}
 					}
+					ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+					ngModelCtrl.$render();
 				};
 
 				scope.keydown = function(evt, idx) {
@@ -70,7 +92,7 @@
 						focusNext = true;
 						allowLoseFocus = true;
 					} else if (del) {
-						inputs[idx].storedValue = undefined;
+						ngModelCtrl.$viewValue[idx].storedValue = undefined;
 						if(idx > 0) {
 							setPlaceholder(idx - 1);
 						}
@@ -96,35 +118,37 @@
 					}
 
 					evt.preventDefault();
+					ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
+					ngModelCtrl.$render();
 				};
 
-				function setAllPlaceholders() {
-					for(var i=0; i < numDigits; i++) {
-						setPlaceholder(i);
+				function initView() {
+					var viewVal = [];
+					for(var i=0; i < 10; i++) {
+						viewVal[i] = {
+							displayValue: '0',
+							storedValue: undefined,
+							hasPlaceholder: true
+						};
 					}
+					ngModelCtrl.$setViewValue(viewVal);
+					ngModelCtrl.$render();
 				}
 
 				function setPlaceholder(index) {
-					var n = index + 1;
-					scope['d' + n] = '0';
-					var inp = inputs[index];
-					inp.storedValue = undefined;
-					inp.hasPlaceholder = true;
-					inp.addClass('placeholder');
+					var inpVal = ngModelCtrl.$viewValue[index];
+					inpVal.displayValue = '0';
+					inpVal.storedValue = undefined;
+					inpVal.hasPlaceholder = true;
 				}
 
 				function clearPlaceholder(index, newVal) {
-					setValue(index, newVal);
-					var inp = inputs[index];
-					inp.hasPlaceholder = false;
-					inp.removeClass('placeholder');
+					var inpVal = ngModelCtrl.$viewValue[index];
+					inpVal.displayValue = newVal;
+					inpVal.hasPlaceholder = false;
 				}
 
-				function getValue(index) {
-					return scope['d' + (index + 1)];
-				}
-
-				function setValue(index, value) {
+				function setScopeValue(index, value) {
 					scope['d' + (index + 1)] = value;
 				}
 

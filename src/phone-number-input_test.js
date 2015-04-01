@@ -8,7 +8,8 @@ describe('init', function() {
     beforeEach(inject(function($rootScope, $compile) {
         this.body = $j(window.document.body);
         this.scope = $rootScope.$new();
-        this.element = $compile('<div phone-number-input></div>')(this.scope);
+        this.element = $compile(
+            '<div phone-number-input ng-model="phoneNumber"></div>')(this.scope);
         this.body.append(this.element);
         this.scope.$digest();
     }));
@@ -74,7 +75,6 @@ describe('init', function() {
     describe('when an element with a value is blurred', function() {
 
         beforeEach(function() {
-            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(55), 0);
             this.blurInput(0);
         });
@@ -131,7 +131,6 @@ describe('init', function() {
     describe('when a numeric value is input', function() {
 
         beforeEach(function() {
-            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(55), 0);
         });
 
