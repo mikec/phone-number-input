@@ -212,6 +212,58 @@ describe('init', function() {
 
     });
 
+    describe('when left arrow is pressed', function() {
+
+        beforeEach(function() {
+            this.setInputFocus(7);
+            this.scope.keydown(new MockKeyEvent(37), 7);
+        });
+
+        it('should focus previous element', function() {
+            this.expectToBeFocused(6);
+        });
+
+    });
+
+    describe('when right arrow is pressed', function() {
+
+        beforeEach(function() {
+            this.setInputFocus(7);
+            this.scope.keydown(new MockKeyEvent(39), 7);
+        });
+
+        it('should focus next element', function() {
+            this.expectToBeFocused(8);
+        });
+
+    });
+
+    describe('when down arrow is pressed', function() {
+
+        beforeEach(function() {
+            this.setInputFocus(7);
+            this.scope.keydown(new MockKeyEvent(40), 7);
+        });
+
+        it('should focus previous element', function() {
+            this.expectToBeFocused(6);
+        });
+
+    });
+
+    describe('when up arrow is pressed', function() {
+
+        beforeEach(function() {
+            this.setInputFocus(7);
+            this.scope.keydown(new MockKeyEvent(38), 7);
+        });
+
+        it('should focus next element', function() {
+            this.expectToBeFocused(8);
+        });
+
+    });
+
     beforeEach(function() {
 
         this.expectValue = function(index) {

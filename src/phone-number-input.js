@@ -59,26 +59,40 @@
 				scope.keydown = function(evt, idx) {
 					var key = evt.keyCode || evt.charCode;
 					var del = ( key == 8 || key == 46 );
+					var leftOrDown = ( key == 37 || key == 40 );
+					var rightOrUp = ( key == 39 || key == 38 );
 					var str = String.fromCharCode(key);
 					var isNum = (/\d/.test(str));
+					var focusPrev, focusNext;
 
 					if(isNum) {
 						clearPlaceholder(idx, str);
-						var nxtIdx = idx + 1;
-						if(nxtIdx < 10) {
-							inputs[nxtIdx][0].focus();
-						} else {
-							inputs[idx][0].blur();
-						}
+						focusNext = true;
 					} else if (del) {
 						setPlaceholder(idx);
+						focusPrev = true;
+					} else if (leftOrDown) {
+						focusPrev = true;
+					} else if (rightOrUp) {
+						focusNext = true;
+					}
+
+					if(focusPrev) {
 						var prevIdx = idx - 1;
 						if(prevIdx >= 0) {
 							inputs[prevIdx][0].focus();
 						} else {
 							inputs[idx][0].blur();
 						}
+					} else if (focusNext) {
+						var nxtIdx = idx + 1;
+						if(nxtIdx < 10) {
+							inputs[nxtIdx][0].focus();
+						} else {
+							inputs[idx][0].blur();
+						}
 					}
+
 					evt.preventDefault();
 				};
 
