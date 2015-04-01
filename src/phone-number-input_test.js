@@ -178,6 +178,7 @@ describe('init', function() {
     describe('when backspace is pressed', function() {
 
         beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(50), 4);
             this.scope.keydown(new MockKeyEvent(55), 5);
             this.setInputFocus(5);
             this.scope.keydown(new MockKeyEvent(8), 5);
@@ -190,6 +191,7 @@ describe('init', function() {
     describe('when delete is pressed', function() {
 
         beforeEach(function() {
+            this.scope.keydown(new MockKeyEvent(50), 4);
             this.scope.keydown(new MockKeyEvent(55), 5);
             this.setInputFocus(5);
             this.scope.keydown(new MockKeyEvent(46), 5);
@@ -305,8 +307,20 @@ function runDeleteKeyTests() {
         this.expectValue(5).toBe(phVal);
     });
 
-    it('should move focus to the previous element', function() {
+    it('should move focus to the previous input', function() {
         this.expectToBeFocused(4);
+    });
+
+    describe('and newly focused input is blurred', function() {
+
+        beforeEach(function() {
+            this.blurInput(4);
+        });
+
+        it('should set the blurred input to the placeholder value', function() {
+            this.expectValue(4).toBe(phVal);
+        });
+
     });
 
 }

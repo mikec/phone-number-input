@@ -71,6 +71,9 @@
 						allowLoseFocus = true;
 					} else if (del) {
 						inputs[idx].storedValue = undefined;
+						if(idx > 0) {
+							setPlaceholder(idx - 1);
+						}
 						focusPrev = true;
 					} else if (leftOrDown) {
 						focusPrev = true;
