@@ -315,6 +315,24 @@ describe('init', function() {
 
     });
 
+    describe('when backspace is pressed on the last input', function() {
+
+        beforeEach(function() {
+            this.setInputFocus(9);
+            this.scope.keydown(new MockKeyEvent(55), 9);
+            this.scope.keydown(new MockKeyEvent(8), 9);
+        });
+
+        it('should focus the previous input', function() {
+            this.expectToBeFocused(8);
+        });
+
+        it('should set the placeholder value on the last input', function() {
+            this.expectValue(9).toBe(phVal);
+        });
+
+    });
+
     describe('when left arrow is pressed', function() {
 
         beforeEach(function() {

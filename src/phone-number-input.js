@@ -100,6 +100,7 @@
 					} else if (del) {
 						inpVal.storedValue = undefined;
 						if(idx > 0) {
+							setPlaceholder(idx);
 							setPlaceholder(idx - 1);
 						}
 						focusPrev = true;
