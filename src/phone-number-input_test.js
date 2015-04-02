@@ -184,6 +184,33 @@ describe('init', function() {
 
     });
 
+    describe('when scope value is set to a full phone number', function() {
+
+        beforeEach(function() {
+            this.scope.phoneNumber = '2223334444';
+            this.scope.$digest();
+        });
+
+        it('should display this phone number in the view', function() {
+            this.expectPhoneNumberDisplayToBe(
+                '2', '2', '2', '3', '3', '3', '4', '4', '4', '4');
+        });
+
+    });
+
+    describe('when scope value is set to a partial phone number', function() {
+
+        beforeEach(function() {
+            this.scope.phoneNumber = '234';
+            this.scope.$digest();
+        });
+
+        it('should display this phone number in the view', function() {
+            this.expectPhoneNumberDisplayToBe('2', '3', '4');
+        });
+
+    });
+
     describe('when a numeric value is input on the last input', function() {
 
         beforeEach(function() {
@@ -314,6 +341,19 @@ describe('init', function() {
         this.expectValue = function(index) {
             var n = index + 1;
             return expect(this.scope['d' + n]);
+        };
+
+        this.expectPhoneNumberDisplayToBe = function() {
+            for(var i=0; i < 10; i++) {
+                var c = arguments[i];
+                if(c) {
+                    this.expectValue(i).toBe(c);
+                    expect(this.getInputElement(i).hasClass(phClass)).toBeFalsy();
+                } else {
+                    this.expectValue(i).toBe(phVal);
+                    expect(this.getInputElement(i).hasClass(phClass)).toBeTruthy();
+                }
+            }
         };
 
         this.blurInput = function(index) {

@@ -68,6 +68,8 @@
 					return v;
 				});
 
+				ngModelCtrl.$formatters.push(viewValueFormatter);
+
 				initView();
 
 				scope.focus = function(evt, idx) {
@@ -140,16 +142,23 @@
 				};
 
 				function initView() {
-					var viewVal = [];
-					for(var i=0; i < 10; i++) {
-						viewVal[i] = {
-							displayValue: '0',
-							storedValue: undefined,
-							hasPlaceholder: true
-						};
-					}
+					var viewVal = viewValueFormatter('');
 					ngModelCtrl.$setViewValue(viewVal);
 					ngModelCtrl.$render();
+				}
+
+				function viewValueFormatter(val) {
+					if(!val) val = '';
+					var viewVal = [];
+					for(var i=0; i < 10; i++) {
+						var c = val.charAt(i);
+						viewVal[i] = {
+							displayValue: (c ? c : '0'),
+							storedValue: undefined,
+							hasPlaceholder: (c ? false : true)
+						};
+					}
+					return viewVal;
 				}
 
 				function setPlaceholder(index) {
