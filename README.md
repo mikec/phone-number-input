@@ -2,6 +2,8 @@
 phone-number-input
 ==================
 
+[![Build Status](https://travis-ci.org/mikec/phone-number-input.svg?branch=master)](https://travis-ci.org/mikec/phone-number-input)
+
 Angular directive to capture input of US based 10-digit phone numbers.
 
 Take a look at the [demo page](https://mikec.github.io/phone-number-input)
