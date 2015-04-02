@@ -211,6 +211,19 @@ describe('init', function() {
 
     });
 
+    describe('when scope value has non-numeric characters', function() {
+
+        beforeEach(function() {
+            this.scope.phoneNumber = 'A1B2';
+            this.scope.$digest();
+        });
+
+        it('should remove the non-numeric characters from view', function() {
+            this.expectPhoneNumberDisplayToBe('1', '2');
+        });
+
+    });
+
     describe('when a numeric value is input on the last input', function() {
 
         beforeEach(function() {

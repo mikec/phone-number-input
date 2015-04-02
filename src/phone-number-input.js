@@ -149,6 +149,7 @@
 
 				function viewValueFormatter(val) {
 					if(!val) val = '';
+					val = val.replace(/\D/g,'');
 					var viewVal = [];
 					for(var i=0; i < 10; i++) {
 						var c = val.charAt(i);
