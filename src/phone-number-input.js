@@ -1,6 +1,6 @@
 /**
  * phone-number-input
- * v0.0.2
+ * v0.1.0
  *
  * captures input of US based 10-digit phone numbers
  **/
