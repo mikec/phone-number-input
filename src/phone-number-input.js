@@ -51,24 +51,8 @@
 					}
 				};
 
-				ngModelCtrl.$parsers.push(function(viewValue) {
-					var v = '';
-					if(viewValue && viewValue.length > 0) {
-						for(var i=0; i < viewValue.length; i++) {
-							var inpVal = viewValue[i];
-							if(!inpVal.hasPlaceholder) {
-								if((parseInt(inpVal.displayValue) >= 0)) {
-									v += inpVal.displayValue;
-								} else if ((parseInt(inpVal.storedValue) >= 0)) {
-									v += inpVal.storedValue;
-								}
-							}
-						}
-					}
-					return v;
-				});
-
-				ngModelCtrl.$formatters.push(viewValueFormatter);
+				ngModelCtrl.$parsers.push(viewValueParser);
+				ngModelCtrl.$formatters.push(valueFormatter);
 
 				initView();
 
@@ -142,12 +126,12 @@
 				};
 
 				function initView() {
-					var viewVal = viewValueFormatter('');
+					var viewVal = valueFormatter('');
 					ngModelCtrl.$setViewValue(viewVal);
 					ngModelCtrl.$render();
 				}
 
-				function viewValueFormatter(val) {
+				function valueFormatter(val) {
 					if(!val) val = '';
 					val = val.replace(/\D/g,'');
 					var viewVal = [];
@@ -160,6 +144,23 @@
 						};
 					}
 					return viewVal;
+				}
+
+				function viewValueParser(viewValue) {
+					var v = '';
+					if(viewValue && viewValue.length > 0) {
+						for(var i=0; i < viewValue.length; i++) {
+							var inpVal = viewValue[i];
+							if(!inpVal.hasPlaceholder) {
+								if((parseInt(inpVal.displayValue) >= 0)) {
+									v += inpVal.displayValue;
+								} else if ((parseInt(inpVal.storedValue) >= 0)) {
+									v += inpVal.storedValue;
+								}
+							}
+						}
+					}
+					return v;
 				}
 
 				function setPlaceholder(index) {
