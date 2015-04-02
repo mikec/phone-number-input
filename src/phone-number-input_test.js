@@ -75,6 +75,7 @@ describe('init', function() {
     describe('when an element with a value is blurred', function() {
 
         beforeEach(function() {
+            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(55), 0);
             this.blurInput(0);
         });
@@ -106,6 +107,7 @@ describe('init', function() {
     describe('when an element with a value is focused', function() {
 
         beforeEach(function() {
+            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(55), 0);
             this.setInputFocus(0);
         });
@@ -131,6 +133,7 @@ describe('init', function() {
     describe('when a numeric value is input', function() {
 
         beforeEach(function() {
+            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(55), 0);
         });
 
@@ -147,6 +150,7 @@ describe('init', function() {
     describe('when a full phone number is input', function() {
 
         beforeEach(function() {
+            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(53), 0);
             this.scope.keydown(new MockKeyEvent(53), 1);
             this.scope.keydown(new MockKeyEvent(53), 2);
@@ -168,10 +172,12 @@ describe('init', function() {
     describe('when a partial phone number is input', function() {
 
         beforeEach(function() {
+            this.setInputFocus(0);
             this.scope.keydown(new MockKeyEvent(53), 0);
             this.scope.keydown(new MockKeyEvent(53), 1);
             this.scope.keydown(new MockKeyEvent(53), 2);
             this.scope.keydown(new MockKeyEvent(55), 3);
+            this.setInputFocus(7);
             this.scope.keydown(new MockKeyEvent(56), 7);
             this.scope.keydown(new MockKeyEvent(56), 8);
             this.scope.keydown(new MockKeyEvent(56), 9);
@@ -231,8 +237,20 @@ describe('init', function() {
             this.scope.keydown(new MockKeyEvent(55), 9);
         });
 
-        it('the last input should be blurred', function() {
-            this.expectToBeBlurred(9);
+        it('the last input should not be blurred', function() {
+            this.expectToBeFocused(9);
+        });
+
+        describe('and another numeric value is entered', function() {
+
+            beforeEach(function() {
+                this.scope.keydown(new MockKeyEvent(53), 9);
+            });
+
+            it('should not display the value', function() {
+                this.expectValue(9).toBe('7');
+            });
+
         });
 
     });

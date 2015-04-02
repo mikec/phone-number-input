@@ -88,14 +88,17 @@
 					var rightOrUp = ( key == 39 || key == 38 );
 					var str = String.fromCharCode(key);
 					var isNum = (/\d/.test(str));
-					var focusPrev, focusNext, allowLoseFocus;
+					var focusPrev, focusNext;
+
+					var inpVal = ngModelCtrl.$viewValue[idx];
 
 					if(isNum) {
-						clearPlaceholder(idx, str);
+						if(angular.isUndefined(inpVal.displayValue)) {
+							clearPlaceholder(idx, str);
+						}
 						focusNext = true;
-						allowLoseFocus = true;
 					} else if (del) {
-						ngModelCtrl.$viewValue[idx].storedValue = undefined;
+						inpVal.storedValue = undefined;
 						if(idx > 0) {
 							setPlaceholder(idx - 1);
 						}
@@ -115,8 +118,6 @@
 						var nxtIdx = idx + 1;
 						if(nxtIdx < 10) {
 							inputs[nxtIdx][0].focus();
-						} else if (allowLoseFocus) {
-							inputs[idx][0].blur();
 						}
 					}
 
