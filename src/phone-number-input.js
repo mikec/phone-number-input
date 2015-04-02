@@ -1,5 +1,9 @@
-// phone-number-input
-// v0.0.2
+/**
+ * phone-number-input
+ * v0.0.2
+ *
+ * captures input of US based 10-digit phone numbers
+ **/
 
 (function() {
 
