@@ -26,8 +26,21 @@ Add our module to your app
 
 Use it in your form with `ng-model`, just like you use other Angular input directives.
 
-    <form>
-        <div phone-number-input ng-model="myPhoneNumber"></div>
+    <form name="myForm">
+        <div phone-number-input
+                name="myPhoneNumber"
+                ng-model="myPhoneNumber">
+        </div>
+    </form>
+
+It also works with the `required` directive
+
+    <form name="myForm" novalidate>
+        <div phone-number-input
+                name="myPhoneNumber"
+                ng-model="myPhoneNumber"
+                required>
+        </div>
     </form>
 
 
