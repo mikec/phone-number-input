@@ -402,6 +402,19 @@ describe('phone-number-input', function() {
 
         });
 
+        describe('when the phone number has a leading zero', function() {
+
+            beforeEach(function() {
+                this.scope.num = '0658230948';
+                this.scope.$digest();
+            });
+
+            it('should set phoneNumber error to true', function() {
+                expect(this.scope.phoneNumberForm.num.$error.phoneNumber).toBeTruthy();
+            });
+
+        });
+
     });
 
     describe('with required directive is used within a form', function() {
