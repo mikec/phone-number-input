@@ -19,16 +19,17 @@
   <form name="phoneNumberForm" novalidate ng-cloak>
 
     <h2>Type a phone number:</h2>
-    <div phone-number-input name="phoneNumber" ng-model="phoneNumber" required></div>
+    <div phone-number-input name="num" ng-model="num" required></div>
 
     <div class="phoneNumberVal">
       <div>phoneNumberForm.$valid: {{phoneNumberForm.$valid}}</div>
-      <div>phoneNumberForm.phoneNumber.$error.required: {{phoneNumberForm.phoneNumber.$error.required}}</div>
+      <div>phoneNumberForm.num.$error.required: {{phoneNumberForm.num.$error.required}}</div>
+      <div>phoneNumberForm.num.$error.phoneNumber: {{phoneNumberForm.num.$error.phoneNumber}}</div>
     </div>
 
   </form>
 
-  <div>phoneNumber: <input ng-model="phoneNumber" /></div>
+  <div>num: <input ng-model="num" /></div>
 
 </body>
 </html>

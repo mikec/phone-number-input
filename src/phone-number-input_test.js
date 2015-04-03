@@ -171,27 +171,6 @@ describe('phone-number-input', function() {
 
         });
 
-        describe('when a partial phone number is input', function() {
-
-            beforeEach(function() {
-                this.setInputFocus(0);
-                this.scope.keydown(new MockKeyEvent(53), 0);
-                this.scope.keydown(new MockKeyEvent(53), 1);
-                this.scope.keydown(new MockKeyEvent(53), 2);
-                this.scope.keydown(new MockKeyEvent(55), 3);
-                this.setInputFocus(7);
-                this.scope.keydown(new MockKeyEvent(56), 7);
-                this.scope.keydown(new MockKeyEvent(56), 8);
-                this.scope.keydown(new MockKeyEvent(56), 9);
-            });
-
-            it('should set the model to an unformatted partial phone number',
-            function() {
-                expect(this.scope.phoneNumber).toBe('5557888');
-            });
-
-        });
-
         describe('when scope value is set to a full phone number', function() {
 
             beforeEach(function() {
@@ -389,6 +368,42 @@ describe('phone-number-input', function() {
 
     });
 
+    describe('when used within a form', function() {
+
+        beforeEach(inject(function($rootScope, $compile) {
+            this.body = $j(window.document.body);
+            this.scope = $rootScope.$new();
+            this.element = $compile(
+                '<form name="phoneNumberForm" novalidate> \
+                    <div phone-number-input \
+                            name="num" \
+                            ng-model="num"> \
+                    </div> \
+                </form>'
+            )(this.scope);
+            this.body.append(this.element);
+            this.scope.$digest();
+        }));
+
+        it('should set phoneNumber error to true', function() {
+            expect(this.scope.phoneNumberForm.num.$error.phoneNumber).toBeTruthy();
+        });
+
+        describe('when the model value is a valid phone number', function() {
+
+            beforeEach(function() {
+                this.scope.num = '5558230948';
+                this.scope.$digest();
+            });
+
+            it('should set phoneNumber error to false', function() {
+                expect(this.scope.phoneNumberForm.num.$error.phoneNumber).toBeUndefined();
+            });
+
+        });
+
+    });
+
     describe('with required directive is used within a form', function() {
 
         beforeEach(inject(function($rootScope, $compile) {
@@ -397,8 +412,8 @@ describe('phone-number-input', function() {
             this.element = $compile(
                 '<form name="phoneNumberForm" novalidate> \
                     <div phone-number-input \
-                            name="phoneNumber" \
-                            ng-model="phoneNumber" \
+                            name="num" \
+                            ng-model="num" \
                             required></div> \
                 </form>'
             )(this.scope);
@@ -407,18 +422,18 @@ describe('phone-number-input', function() {
         }));
 
         it('should set required error to true', function() {
-            expect(this.scope.phoneNumberForm.phoneNumber.$error.required).toBeTruthy();
+            expect(this.scope.phoneNumberForm.num.$error.required).toBeTruthy();
         });
 
         describe('when the model value is a partial number', function() {
 
             beforeEach(function() {
-                this.scope.phoneNumber = '123';
+                this.scope.num = '123';
                 this.scope.$digest();
             });
 
             it('should set required error to false', function() {
-                expect(this.scope.phoneNumberForm.phoneNumber.$error.required).toBeFalsy();
+                expect(this.scope.phoneNumberForm.num.$error.required).toBeFalsy();
             });
 
         });
@@ -426,12 +441,12 @@ describe('phone-number-input', function() {
         describe('when the model value is a full number', function() {
 
             beforeEach(function() {
-                this.scope.phoneNumber = '2223334444';
+                this.scope.num = '2223334444';
                 this.scope.$digest();
             });
 
             it('should set required error to false', function() {
-                expect(this.scope.phoneNumberForm.phoneNumber.$error.required).toBeFalsy();
+                expect(this.scope.phoneNumberForm.num.$error.required).toBeFalsy();
             });
 
         });

@@ -55,6 +55,11 @@
 					}
 				};
 
+				ngModelCtrl.$validators.phoneNumber = function(modelValue) {
+					var mob = /^[1-9]{1}[0-9]{9}$/;
+    				return mob.test(modelValue);
+				};
+
 				ngModelCtrl.$isEmpty = function(value) {
 					if(value) {
 						for(var i=0; i < value.length; i++) {
