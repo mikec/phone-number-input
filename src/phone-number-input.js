@@ -39,6 +39,10 @@
 
 				var inputs = getInputElements();
 
+				if(!angular.isUndefined(attrs.forceFocus)) {
+					inputs[0][0].focus();
+				}
+
 				ngModelCtrl.$render = function() {
 					var viewVal = ngModelCtrl.$viewValue;
 					if(viewVal && viewVal.length > 0) {

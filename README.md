@@ -44,6 +44,14 @@ It also works with the `required` directive
     </form>
 
 
+Forcing focus
+-------------
+
+Use the `force-focus` attribute to force focus of the first input box
+
+    <div phone-number-input ng-model="myPhoneNumber" force-focus></div>
+
+
 Customizing the Style
 ---------------------
 
