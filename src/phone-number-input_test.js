@@ -3,7 +3,7 @@ var phClass = 'placeholder';
 
 describe('phone-number-input', function() {
 
-    beforeEach(module('litl'));
+    beforeEach(module('litl.phoneNumberInput'));
 
     describe('without a form', function() {
 

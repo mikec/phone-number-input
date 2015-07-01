@@ -7,9 +7,8 @@
 
 (function() {
 
-	if(!window.litl) window.litl = angular.module('litl', []);
-
-	window.litl.directive('phoneNumberInput', [function() {
+    angular.module('litl.phoneNumberInput', []).directive('phoneNumberInput',
+    [function() {
 
 		var numDigits = 10;
 
